@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhotoFilter-Comics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <button id="toggleSidebar">☰</button>
+  <div id="canvasTitle">PhotoFilter-Comics</div>
+
+  <div class="sidebar hidden" id="sidebar">
+    <h2>PhotoFilter-Comics</h2>
+    <p>by berlandbor</p>
+
+    <input type="file" id="upload" accept="image/*"><hr>
+
+    <div class="section">
+      <h3>Постеризация и Насыщенность</h3>
+
+      <label>Постеризация:</label>
+      <div class="param-group">
+        <input type="range" id="poster" min="10" max="150" value="50">
+        <input type="number" id="posterInput" min="10" max="150" value="50">
+      </div>
+
+      <label>Насыщенность:</label>
+      <div class="param-group">
+        <input type="range" id="saturation" min="0" max="2" step="0.1" value="1.0">
+        <input type="number" id="saturationInput" min="0" max="2" step="0.1" value="1.0">
+      </div>
+
+      <label>Прозрачность изображения:</label>
+      <div class="param-group">
+        <input type="range" id="imageAlpha" min="0" max="255" value="255">
+        <input type="number" id="imageAlphaVal" min="0" max="255" value="255">
+      </div>
+    </div><hr>
+  <div class="section">
+  <h3>Фильтрация выбранных цветов</h3>
+
+  <h4>Цвет 1</h4>
+  <label>Выбрать цвет:</label>
+  <input type="color" id="selectedColor1" value="#ff0000">
+  <label>Порог совпадения:</label>
+  <input type="range" id="colorTolerance1" min="0" max="255" value="50">
+  <input type="number" id="colorToleranceVal1" min="0" max="255" value="50">
+  <label>Постеризация:</label>
+  <input type="range" id="colorPosterization1" min="1" max="255" value="50">
+  <input type="number" id="colorPosterizationVal1" min="1" max="255" value="50">
+  <label>Насыщенность:</label>
+  <input type="range" id="colorSaturation1" min="0" max="2" step="0.1" value="1.0">
+  <input type="number" id="colorSaturationVal1" min="0" max="2" step="0.1" value="1.0">
+
+  <h4>Цвет 2</h4>
+  <label>Выбрать цвет:</label>
+  <input type="color" id="selectedColor2" value="#00ff00">
+  <label>Порог совпадения:</label>
+  <input type="range" id="colorTolerance2" min="0" max="255" value="50">
+  <input type="number" id="colorToleranceVal2" min="0" max="255" value="50">
+  <label>Постеризация:</label>
+  <input type="range" id="colorPosterization2" min="1" max="255" value="50">
+  <input type="number" id="colorPosterizationVal2" min="1" max="255" value="50">
+  <label>Насыщенность:</label>
+  <input type="range" id="colorSaturation2" min="0" max="2" step="0.1" value="1.0">
+  <input type="number" id="colorSaturationVal2" min="0" max="2" step="0.1" value="1.0">
+
+  <h4>Цвет 3</h4>
+  <label>Выбрать цвет:</label>
+  <input type="color" id="selectedColor3" value="#0000ff">
+  <label>Порог совпадения:</label>
+  <input type="range" id="colorTolerance3" min="0" max="255" value="50">
+  <input type="number" id="colorToleranceVal3" min="0" max="255" value="50">
+  <label>Постеризация:</label>
+  <input type="range" id="colorPosterization3" min="1" max="255" value="50">
+  <input type="number" id="colorPosterizationVal3" min="1" max="255" value="50">
+  <label>Насыщенность:</label>
+  <input type="range" id="colorSaturation3" min="0" max="2" step="0.1" value="1.0">
+  <input type="number" id="colorSaturationVal3" min="0" max="2" step="0.1" value="1.0">
+</div><hr>
+
+    <div class="section">
+      <h3>Контуры</h3>
+
+      <label>Порог контуров:</label>
+      <div class="param-group">
+        <input type="range" id="edgeThreshold" min="1" max="50" value="25">
+        <input type="number" id="edgeInput" min="1" max="50" value="25">
+      </div>
+
+      <label>Цвет контура:</label>
+      <input type="color" id="edgeColor" value="#000000">
+
+      <label>Прозрачность контура:</label>
+      <div class="param-group">
+        <input type="range" id="edgeAlpha" min="0" max="255" value="255">
+        <input type="number" id="alphaVal" min="0" max="255" value="255">
+      </div>
+
+      <label><input type="checkbox" id="showEdges"> Показывать контуры</label>
+      <label><input type="checkbox" id="onlyEdges"> Только контуры</label>
+
+      <div id="bgPicker" style="display:none;">
+        <label>Цвет фона:</label>
+        <input type="color" id="bgColor" value="#ffffff">
+      </div>
+    </div><hr>
+    <div class="section">
+  <h3>Управление цветовым каналом</h3>
+  <label for="globalColor">Выбери цвет:</label><br>
+  <input type="color" id="globalColor" value="#ff0000"><br><br>
+
+  <label for="globalColorStrength">Интенсивность цвета (-100 до +100):</label><br>
+  <input type="range" id="globalColorStrength" min="-100" max="100" value="0">
+  <span id="globalColorStrengthVal">0</span>
+</div><hr>
+<div class="section">
+  <h3>Контрастность</h3>
+  <input type="range" id="contrast" min="-100" max="100" value="0">
+  <span id="contrastVal">0</span>
+</div><hr>
+<div class="section">
+  <h3>Цветность</h3>
+  <input type="range" id="colorize" min="0" max="100" value="100">
+  <span id="colorizeVal">100</span>
+</div><hr>
+<div class="section">
+  <h3>Яркость</h3>
+  <input type="range" id="brightness" min="-100" max="100" value="0">
+  <span id="brightnessVal">0</span>
+</div><hr>
+<div class="section">
+  <h3>Виньетка</h3>
+
+  <label for="vignetteColor">Цвет виньетки:</label><br>
+  <input type="color" id="vignetteColor" value="#000000" style="width: 40px; height: 40px; border: none; padding: 0; border-radius: 50%; overflow: hidden;"><br><br>
+
+  <label for="vignette">Интенсивность виньетки:</label><br>
+  <input type="range" id="vignette" min="0" max="100" value="0">
+  <span id="vignetteVal">0</span><br><br>
+
+  <label for="vignetteRadius">Радиус начала виньетки:</label><br>
+  <input type="range" id="vignetteRadius" min="0" max="100" value="50">
+  <span id="vignetteRadiusVal">50%</span>
+</div><hr>
+<div class="section">
+  <h3>Обрезка по отступам</h3>
+
+  <label>Отступ слева:</label><br>
+  <input type="number" id="cropMarginLeft" value="0" min="0"><br><br>
+
+  <label>Отступ справа:</label><br>
+  <input type="number" id="cropMarginRight" value="0" min="0"><br><br>
+
+  <label>Отступ сверху:</label><br>
+  <input type="number" id="cropMarginTop" value="0" min="0"><br><br>
+
+  <label>Отступ снизу:</label><br>
+  <input type="number" id="cropMarginBottom" value="0" min="0"><br><br>
+
+  <button id="applyCrop">Применить обрезку</button>
+</div><hr>
+<div class="section">
+  <h3>Рамка</h3>
+  <label for="frameColor">Цвет рамки:</label><br>
+  <input type="color" id="frameColor" value="#000000"><br><br>
+
+  <label for="frameWidth">Толщина рамки:</label><br>
+  <input type="range" id="frameWidth" min="0" max="50" value="0">
+  <span id="frameWidthVal">0</span>
+</div><hr>
+
+<div class="section">
+  <h3>Автограф</h3>
+  <label for="signatureText">Текст автографа:</label><br>
+  <input type="text" id="signatureText" placeholder="© ..." value="© ..."><br><br>
+
+  <label for="signatureColor">Цвет автографа:</label><br>
+  <input type="color" id="signatureColor" value="#000000"><br><br>
+
+  <label for="signatureSize">Размер шрифта:</label><br>
+  <input type="range" id="signatureSize" min="10" max="100" value="30">
+  <span id="signatureSizeVal">30</span>
+</div><hr>
+
+    <div class="section">
+      <h3>Масштаб</h3>
+
+      <div class="param-group">
+        <input type="range" id="zoom" min="0.2" max="3" step="0.1" value="1.0">
+        <input type="number" id="zoomVal" min="0.2" max="3" step="0.1" value="1.0">
+      </div>
+
+      <button id="resetBtn">Сброс</button>
+      <button id="downloadBtn">Скачать</button>
+    </div>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <!-- Скрипты -->
+  <!--script src="script.js"></script-->
+  <script src="dom-elements.js"></script>
+  <script src="utils.js"></script>
+  <script src="filters.js"></script>
+  <script src="events.js"></script>
+  <script src="main.js"></script>
+
+</body>
+</html>
